@@ -14,7 +14,6 @@ void Game::initWindow() {
     this->window = new RenderWindow(this ->videoMode, "Game 1", Style::Titlebar |
     Style::Close);
     this->window->setFramerateLimit(60);
-
 }
 
 Game::Game() {
@@ -69,8 +68,8 @@ void Game::initEnemy() {
 }
 
 void Game::updateMousePos() {
-    this->MousePos = Mouse::getPosition(*this->window);
-
+    this->mousePosWindow = Mouse::getPosition(*this->window);
+    this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
 }
 
 void Game::spawnEnemies() {
@@ -94,9 +93,31 @@ void Game::updateEnemies() {
             this->enemySpawnTimer += 1.f;
     }
 
-    for (auto &e : this->enemies)
+    for (int i = 0; i<enemies.size(); ++i)
     {
-        e.move(0.f, 1.f);
+        bool deleted = false;
+
+        this->enemies[i].move(0.f,1.f);
+
+        if (Mouse::isButtonPressed(Mouse::Left))
+        {
+            if (this->enemies[i].getGlobalBounds().contains(this->mousePosView))
+            {
+                deleted = true;
+                this->points += 10.f;
+            }
+        }
+
+
+        if (this->enemies[i].getPosition().y > this->window->getSize().y)
+        {
+            deleted = true;
+        }
+
+        if (deleted)
+        {
+            this->enemies.erase(this->enemies.begin() + i);
+        }
     }
 }
 

@@ -19,7 +19,8 @@ class Game{
     Event event;
     VideoMode videoMode;
     RectangleShape enemy;
-    Vector2i MousePos;
+    Vector2i mousePosWindow;
+    Vector2f mousePosView;
     vector<RectangleShape> enemies;
     void initVar();
     void initWindow();
