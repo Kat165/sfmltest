@@ -1,28 +1,15 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include "headers/Game.h"
 
 using namespace sf;
 
 int main() {
-    RenderWindow window(VideoMode(640, 480), "dziala", Style::Titlebar | Style::Close);
-    Event event;
+    Game game;
 
-    while (window.isOpen())
+    while (game.running())
     {
-        while (window.pollEvent(event))
-        {
-            switch (event.type) {
-                case Event::Closed:
-                    window.close();
-                    break;
-                case Event::KeyPressed:
-                    if(event.key.code == Keyboard::Escape)
-                        window.close();
-                    break;
-            }
-        }
-        window.clear(Color::Blue);
-        window.display();
+        game.update();
+        game.render();
     }
 
     return 0;
