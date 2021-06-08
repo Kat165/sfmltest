@@ -3,7 +3,7 @@ project(sfmltest)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(sfmltest main.cpp src/Game.cpp headers/Game.h)
+add_executable(sfmltest main.cpp src/Game.cpp headers/Game.h src/Controls.cpp headers/Controls.h)
 
 include_directories(C:/SFML/include)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
